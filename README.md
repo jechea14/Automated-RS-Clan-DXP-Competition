@@ -15,3 +15,4 @@
 - Create a fair competition among the lower and higher level players, so the lower level players can compete against other low level players and vise versa.
 - Originally, the competition winners would be the top 5 most dxp gained. However, several clan mates brought up the unfairness of this as higher level clan mates would easily get top placements.
 - Automate the manual tasks of calculating the rules applied and placing results into respective brackets.
+- Purpose of rules: Some skills become very easy to gain DXP in, so it is easy to get top placements. Reducing the DXP gained helps balance among the other skills. Some skills are difficult/slow to train even with DXP active, so doubling the DXP gained helps the balance.
