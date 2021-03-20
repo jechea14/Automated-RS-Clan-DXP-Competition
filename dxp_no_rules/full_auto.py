@@ -5,18 +5,6 @@ import csv
 # import pandas as pd
 from pprint import pprint
 
-PATH = "/Users/jeanie/Downloads/chromedriver"
-driver = webdriver.Chrome(PATH)
-url = "https://www.runeclan.com/clan/Elite_Team_Killerz/xp-tracker/1?skill=2&criteria_set1=double_xp_weekend"
-driver.get(url)
-
-bracketA = []
-bracketB = []
-bracketC = []
-bracketD = []
-total_lvls = []
-usr = []
-
 def scrape():
     content = driver.page_source
     soup = BeautifulSoup(content, "html.parser")
@@ -82,19 +70,38 @@ def read_csv():
         reader = csv.DictReader(csvfile)
         for row in reader:
             total_lvls.append(dict(row))
- 
-read_csv()       
-scrape()
-next_page()
-scrape()
-res = [ele for ele in usr if ele != 'None'] 
-dxp_gains = make_new_gains_dict(res)
-totals = remove_commas(total_lvls)
-brackets(dxp_gains, totals)
+            
+if __name__ == '__main__':
+    PATH = "/Users/jeanie/Downloads/chromedriver"
+    driver = webdriver.Chrome(PATH)
+    url = "https://www.runeclan.com/clan/Elite_Team_Killerz/xp-tracker/1?skill=2&criteria_set1=double_xp_weekend"
+    driver.get(url)
 
-pprint(bracketA)
-pprint(bracketB)
-pprint(bracketC)
-pprint(bracketD)
-              
-driver.quit()
+    bracketA = []
+    bracketB = []
+    bracketC = []
+    bracketD = []
+    total_lvls = []
+    usr = []
+    
+    read_csv()       
+    scrape()
+    next_page()
+    scrape()
+    driver.quit()
+    
+    res = [ele for ele in usr if ele != 'None'] 
+    dxp_gains = make_new_gains_dict(res)
+    totals = remove_commas(total_lvls)
+    brackets(dxp_gains, totals)
+
+    pprint(bracketA)
+    pprint(bracketB)
+    pprint(bracketC)
+    pprint(bracketD)
+                
+    # # bracket data as dataframes for better viewing                
+    # bracketA_data = pd.DataFrame.from_dict(bracketA, orient='columns')
+    # bracketB_data = pd.DataFrame.from_dict(bracketB, orient='columns')
+    # bracketC_data = pd.DataFrame.from_dict(bracketC, orient='columns')
+    # bracketD_data = pd.DataFrame.from_dict(bracketD, orient='columns')  
