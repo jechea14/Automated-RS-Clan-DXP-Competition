@@ -5,53 +5,6 @@ import csv
 # import pandas as pd
 from skills import Skills
 from pprint import pprint
-PATH = "/Users/jeanie/Downloads/chromedriver"
-driver = webdriver.Chrome(PATH)
-url = "https://www.runeclan.com/clan/Elite_Team_Killerz/xp-tracker/1?skill=2&criteria_set1=double_xp_weekend"
-url_runeclan = "https://www.runeclan.com/user/"
-driver.get(url)
-
-bracketA = []
-bracketB = []
-bracketC = []
-bracketD = []
-
-halved_skills = [
-    'Summoning', 
-    'Herblore', 
-    'Farming'
-]
-
-doubled_skills = [
-    'Runecrafting', 
-    'Archaeology', 
-    'Agility', 
-    'Hunter', 
-    'Divination', 
-    'Smithing', 
-    'Fishing', 
-    'Mining', 
-    'Woodcutting'
-]
-
-normal_skills = [
-    'Attack', 
-    'Defence', 
-    'Strength', 
-    'Constitution', 
-    'Ranged', 
-    'Prayer', 
-    'Magic', 
-    'Cooking', 
-    'Fletching', 
-    'Firemaking', 
-    'Crafting', 
-    'Thieving', 
-    'Slayer', 
-    'Construction', 
-    'Dungeoneering', 
-    'Invention'
-]
 
 # Scrape users
 def scrape():
@@ -168,7 +121,8 @@ def remove_commas(list):
     return list
 
 '''
-Check if results name matches clan roster then is placed to appropriate bracket based on total lvl from clan roster list.
+Check if results name matches clan roster then is placed to appropriate 
+bracket based on total lvl from clan roster list.
 Check to see who participated in dxp.
 '''
 def brackets(dxp, totals):  
@@ -184,33 +138,82 @@ def brackets(dxp, totals):
                 elif totals[j]['Total lvl'] >= 2700:
                     bracketD.append(dxp[i]) 
 
-total_lvls = []
-usr = []
-new_dxp_gains = []
-read_csv()       
-scrape()
-next_page()
-scrape()    
-links = [ele for ele in usr if ele != 'None'] 
-runeclan_links = replace_space(links)
-scrape_data(runeclan_links)
-totals = remove_commas(total_lvls)
-brackets(new_dxp_gains, totals)
+if __name__ == '__main__':
+    PATH = "/Users/jeanie/Downloads/chromedriver"
+    driver = webdriver.Chrome(PATH)
+    url = "https://www.runeclan.com/clan/Elite_Team_Killerz/xp-tracker/1?skill=2&criteria_set1=double_xp_weekend"
+    url_runeclan = "https://www.runeclan.com/user/"
+    driver.get(url)
 
-# sort dictionaries by DXP Gained in descending order
-bracketA_data_ordered = sorted(bracketA, key = lambda item: item['DXP Gained'], reverse=True)
-bracketB_data_ordered = sorted(bracketB, key = lambda item: item['DXP Gained'], reverse=True)
-bracketC_data_ordered = sorted(bracketC, key = lambda item: item['DXP Gained'], reverse=True)
-bracketD_data_ordered = sorted(bracketD, key = lambda item: item['DXP Gained'], reverse=True)
+    bracketA = []
+    bracketB = []
+    bracketC = []
+    bracketD = []
 
-pprint(bracketA_data_ordered)
-pprint(bracketB_data_ordered)
-pprint(bracketC_data_ordered)
-pprint(bracketD_data_ordered)
+    halved_skills = [
+        'Summoning', 
+        'Herblore', 
+        'Farming'
+    ]
 
-# # bracket data as dataframes for better viewing                
-# bracketA_data = pd.DataFrame.from_dict(bracketA_data_ordered, orient='columns')
-# bracketB_data = pd.DataFrame.from_dict(bracketB_data_ordered, orient='columns')
-# bracketC_data = pd.DataFrame.from_dict(bracketC_data_ordered, orient='columns')
-# bracketD_data = pd.DataFrame.from_dict(bracketD_data_ordered, orient='columns')  
-driver.quit()
+    doubled_skills = [
+        'Runecrafting', 
+        'Archaeology', 
+        'Agility', 
+        'Hunter', 
+        'Divination', 
+        'Smithing', 
+        'Fishing', 
+        'Mining', 
+        'Woodcutting'
+    ]
+
+    normal_skills = [
+        'Attack', 
+        'Defence', 
+        'Strength', 
+        'Constitution', 
+        'Ranged', 
+        'Prayer', 
+        'Magic', 
+        'Cooking', 
+        'Fletching', 
+        'Firemaking', 
+        'Crafting', 
+        'Thieving', 
+        'Slayer', 
+        'Construction', 
+        'Dungeoneering', 
+        'Invention'
+    ]
+    
+    total_lvls = []
+    usr = []
+    new_dxp_gains = []
+    read_csv()       
+    scrape()
+    next_page()
+    scrape()    
+    links = [ele for ele in usr if ele != 'None'] 
+    runeclan_links = replace_space(links)
+    scrape_data(runeclan_links)
+    driver.quit()
+    totals = remove_commas(total_lvls)
+    brackets(new_dxp_gains, totals)
+
+    # sort dictionaries by DXP Gained in descending order
+    bracketA_data_ordered = sorted(bracketA, key = lambda item: item['DXP Gained'], reverse=True)
+    bracketB_data_ordered = sorted(bracketB, key = lambda item: item['DXP Gained'], reverse=True)
+    bracketC_data_ordered = sorted(bracketC, key = lambda item: item['DXP Gained'], reverse=True)
+    bracketD_data_ordered = sorted(bracketD, key = lambda item: item['DXP Gained'], reverse=True)
+
+    pprint(bracketA_data_ordered)
+    pprint(bracketB_data_ordered)
+    pprint(bracketC_data_ordered)
+    pprint(bracketD_data_ordered)
+
+    # # bracket data as dataframes for better viewing                
+    # bracketA_data = pd.DataFrame.from_dict(bracketA_data_ordered, orient='columns')
+    # bracketB_data = pd.DataFrame.from_dict(bracketB_data_ordered, orient='columns')
+    # bracketC_data = pd.DataFrame.from_dict(bracketC_data_ordered, orient='columns')
+    # bracketD_data = pd.DataFrame.from_dict(bracketD_data_ordered, orient='columns')  
