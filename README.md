@@ -1,14 +1,15 @@
 # Automated-RS-Clan-DXP-Competition
 
-1. Clanmates split into brackets based on total levels before DXP (Bracket A: <2k total, Bracket B: 2k-2.5k total, Bracket C: 2.5k-2.7k total, Bracket D: 2.7k+ total).
-2. Show results of most DXP gained to least DXP gained in each bracket (Web scrape RuneClan).
+1. Clanmates split into brackets based on total levels before DXP (Bracket A: <2k total, Bracket B: 2k-2.3k total, Bracket C: 2.3k-2.6k total, Bracket D: 2.6k-2.7k total, Bracket E: 2.7k-2.8k total, Bracket F: 2.8k-2850 total, Bracket G: 2850+ total).
+2. Show results in descending order of most DXP gained to least DXP gained in each bracket (Web scrape RuneClan).
 3. Rules applied and no rules applied versions.
 
 ### Rules
 
-- Summoning, Herblore, and Farming xp count as half.
-- Runecrafting, Arch, Agility, Hunter, Div, Smithing, Fishing, Mining, and Woodcutting xp count as double.
-- Rest of the skills count as normal.
+- Attack, Defense, Strength, Constitution, Magic, Range, Herblore, Summoning, Farming, Invention, Archaeology, and Dungeoneering xp count as half (0.5x).
+- Thieving, Crafting, and Fletching xp count as normal (1x).
+- Hunter, Firemaking, Smithing, Construction, Prayer, Cooking, and Slayer xp count as double (2x).
+- Agility, Divination, Fishing, Woodcutting, Mining, and Runecrafting xp count as triple (3x).
 
 ## Purpose of this project
 
