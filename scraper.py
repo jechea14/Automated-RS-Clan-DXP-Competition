@@ -140,17 +140,17 @@ def brackets(dxp, totals):
     for i in range(0, len(dxp)):
         for j in range(0, len(totals)):
             if dxp[i]['Name'] == totals[j]['Name']:
-                if totals[j]['Total lvl'] < 2000:
+                if totals[j]['Total lvl'] <= 2000:
                     bracketA.append(dxp[i])
-                elif totals[j]['Total lvl'] >= 2001 and totals[j]['Total lvl'] < 2300:
+                elif totals[j]['Total lvl'] >= 2001 and totals[j]['Total lvl'] <= 2300:
                     bracketB.append(dxp[i])
-                elif totals[j]['Total lvl'] >= 2301 and totals[j]['Total lvl'] < 2600:
+                elif totals[j]['Total lvl'] >= 2301 and totals[j]['Total lvl'] <= 2600:
                     bracketC.append(dxp[i])
-                elif totals[j]['Total lvl'] >= 2601 and totals[j]['Total lvl'] < 2700:
+                elif totals[j]['Total lvl'] >= 2601 and totals[j]['Total lvl'] <= 2700:
                     bracketD.append(dxp[i])
-                elif totals[j]['Total lvl'] >= 2701 and totals[j]['Total lvl'] < 2800:
+                elif totals[j]['Total lvl'] >= 2701 and totals[j]['Total lvl'] <= 2800:
                     bracketE.append(dxp[i])
-                elif totals[j]['Total lvl'] >= 2801 and totals[j]['Total lvl'] < 2850:
+                elif totals[j]['Total lvl'] >= 2801 and totals[j]['Total lvl'] <= 2850:
                     bracketF.append(dxp[i])   
                 elif totals[j]['Total lvl'] >= 2851:
                     bracketG.append(dxp[i]) 
