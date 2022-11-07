@@ -27,7 +27,7 @@ skills = [
     "Runecrafting",
     "Hunter",
     "Construction",
-    "Summmoning",
+    "Summoning",
     "Dungeoneering",
     "Divination",
     "Invention",
@@ -56,60 +56,64 @@ def replace_with_space(arr):
         index += 1
 
 def get_player_data(arr):
-    c = []
+    etk_data = []
     for player in arr:
         try:
             try:
-                print(player)
+                print(player + ' - hiscores ')
                 req = requests.get(f'https://secure.runescape.com/m=hiscore/index_lite.ws?player={player}')
 
                 hiscores = req.text.split('\n')
-                skil = hiscores[1:29]
+                skill_numbers = hiscores[1:29]
+                split_total_lvl = hiscores[0].split(',')
+                total_lvl_data = int(split_total_lvl[1])
                 s = []
 
-                for i in range(0, len(skil)):
-                    
-                    s.append(skil[i].split(','))
+                for i in range(0, len(skill_numbers)):
+                    s.append(skill_numbers[i].split(','))
 
-                a = {}
-                for i in range(0, len(skil)):
+                clanmate_data = {}
+                for i in range(0, len(skill_numbers)):
                     if s[i][2] == '-1':
-                        s[i][2] = '0'
-                    a[skills[i]] = (s[i][2])
+                        s[i][2] = 0
+                    clanmate_data[skills[i]] = int(s[i][2])
 
-                b = {"Name": player}
-                b.update(a)
-                c.append(b)
+                player_name = {"Name": player}
+                total_lvl = {"Total Lvl": total_lvl_data}
+                total_lvl.update(clanmate_data)
+                player_name.update(total_lvl)
+                etk_data.append(player_name)
 
             except:
-                print(player)
+                print(player + ' - runemetrics ')
                 req = requests.get(f'https://apps.runescape.com/runemetrics/profile/profile?user={player}')
                 data = req.json()
                 skill_data = data["skillvalues"]
-
+                total_lvl_data = int(data["totalskill"])
                 skill_data.sort(key=myFunc)
-
-                a = {}
+                clanmate_data = {}
 
                 for i in range(0, len(skill_data)):
-                    a[skills[i]] = (skill_data[i]["xp"])
-                b = {"Name": player}
-                b.update(a)
-                c.append(b)
+                    clanmate_data[skills[i]] = int(skill_data[i]["xp"])
+
+                player_name = {"Name": player}
+                total_lvl = {"Total Lvl": total_lvl_data}
+                total_lvl.update(clanmate_data)
+                player_name.update(total_lvl)
+                etk_data.append(player_name)
+
+        except requests.ConnectionError:
+            print('Connection error')
 
         except:
             print(f"Not found in hiscores & Runemetrics profile private: {player}. Skipping...")
             pass
 
-    return c
+    return etk_data
 
 if __name__ == '__main__':
-
     players = []
     read_csv(players)
     replace_with_space(players)
-    player = get_player_data(players)
-    write_csv(player)
-
-
-
+    etk_data = get_player_data(players)
+    write_csv(etk_data)
