@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import csv
 import pandas as pd
@@ -74,10 +75,10 @@ def scrape_data(links):
         driver.get(link)
 
         try:
-            driver.find_element_by_name('dxp_col')
+            driver.find_element(by=By.NAME, value="dxp_col")
 
             # "click" on option dropdown and select dxp gains
-            select = Select(driver.find_element_by_name('dxp_col'))
+            select = Select(driver.find_element(by=By.NAME, value="dxp_col"))
             select.select_by_visible_text('DXP Live')
 
             # Scrape skills and dxp gained
@@ -168,9 +169,9 @@ def brackets(dxp, totals):
                     bracketG.append(dxp[i])
 
 if __name__ == '__main__':
-    driver = webdriver.Chrome()
+    # driver = webdriver.Chrome()
     # PATH = "F:\Downloads\chromedriver_win32 (2)/chromedriver"
-    # driver = webdriver.Chrome(PATH)
+    driver = webdriver.Chrome('/Users/jeaniechea/Documents/python_data/etk_dxp/Q2/windows/chromedriver')
 
     url = "https://www.runeclan.com/clan/Elite_Team_Killerz/xp-tracker?skill=2&criteria_set1=double_xp_weekend"
     url_runeclan = "https://www.runeclan.com/user/"
@@ -279,7 +280,7 @@ if __name__ == '__main__':
         bracketG_data_ordered, orient='columns')
 
     bracketA_data['Rank'] = range(1, len(bracketA_data) + 1)
-    # bracketA_data = bracketA_data[list(('Rank', 'Name', 'DXP Gained'))]
+    bracketA_data = bracketA_data[list(('Rank', 'Name', 'DXP Gained'))]
 
     bracketB_data['Rank'] = range(1, len(bracketB_data) + 1)
     bracketB_data = bracketB_data[list(('Rank', 'Name', 'DXP Gained'))]
